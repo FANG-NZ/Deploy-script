@@ -9,6 +9,9 @@
 ###### DECLARATIONS ######
 DEPLOY=1
 BUILD=0
+SHOW=1
+
+KEEP_RELEASE_COUNT=3
 
 
 # ------------------------------------------------
@@ -106,9 +109,11 @@ deploy()
 
     # We need to call php artisan
     # ----------------------------------------
-    php artisan config:cache
-    php artisan route:cache
-    php artisan view:cache
+    #php artisan config:cache
+    #php artisan route:cache
+    #php artisan view:cache
+    php artisan optimize
+    php artisan storage:link
     echo "Done for php artisan config/route/view cache"
 
     # Install NPM & setup
@@ -136,12 +141,73 @@ deploy()
 	# -----------------------------------------------
     if [ -d "releases/$NOW/storage/app/public" ]
     then
-        rm -rf releases/$NOW/storage/app/public && ln -s ../../assets releases/$NOW/storage/app/public
+        rm -rf releases/$NOW/storage/app/public && ln -s ../../../../asserts releases/$NOW/storage/app/public
     else
-        ln -s ../../assets releases/$NOW/storage/app/public
+        ln -s ../../../../asserts releases/$NOW/storage/app/public
     fi
     echo "Done for sharing assert"
 
+    purge
+    showall
+
+    echo "Deploy complete. Current web site is now releases/$NOW"
+}
+
+
+
+# ------------------------------------------------
+# FUNCTION
+# This is to keep the latest version of deploy
+# ------------------------------------------------
+purge()
+{
+	echo "Removing all but the latest $KEEP_RELEASE_COUNT releases..."
+	# reverse directory listing with newline
+	# --------------------------------------
+  	array=(`ls -1 -r releases/`) 
+  	len=${#array[*]}
+  	if [ $len -le $KEEP_RELEASE_COUNT ]
+  	then
+    		echo "...nothing to remove."
+  	fi
+
+  	i=0
+  	while [ $i -lt $len ]; do
+
+   		# echo "$i: ${array[$i]}"
+		# -------------------------
+   		if [ $i -gt $[$KEEP_RELEASE_COUNT-1] ]
+   		then
+     			echo "Removing $[$i+1] of $len ${array[$i]}"
+     			rm -rf releases/${array[$i]}
+   		fi
+   		let i++
+
+  	done
+  	echo ""
+}
+
+
+# ------------------------------------------------
+# FUNCTION
+# This is to list all releases 
+# ------------------------------------------------
+showall()
+{
+    echo "Listing all releases..."
+    array=(`ls -1 -r releases/`) #reverse directory listing with newline
+    len=${#array[*]}
+
+    i=0
+    while [ $i -lt $len ]; do
+        mydate="${array[$i]}"
+        nice=`date +%c -d "${mydate:0:4}-${mydate:4:2}-${mydate:6:2} ${mydate:8:2}:${mydate:10:2}:${mydate:12:2}"`
+        echo "releases/${array[$i]}: $nice"
+        let i++
+    done
+
+    ls -l current
+    echo ""
 }
 
 
@@ -151,7 +217,7 @@ deploy()
 # Parse options
 # ------------------------------------------------
 parseopts () {
-    while getopts "b" optname
+    while getopts "bs" optname
         do
             case ${optname} in
 
@@ -165,6 +231,10 @@ parseopts () {
 
                 "b" ) 
                     BUILD=1
+       		        DEPLOY=0;;
+
+                "s" )
+                    BUILD=0
        		        DEPLOY=0;;
        	
             esac
@@ -199,5 +269,13 @@ fi
 if [ $DEPLOY -eq 1 ]
 then
   deploy
+  exit 0
+fi
+
+# Handle SHOW ALL
+# ----------------------------------
+if [ $SHOW -eq 1 ]
+then
+  showall
   exit 0
 fi
