@@ -103,7 +103,7 @@ deploy()
         php /usr/local/bin/composer.phar install
     else
         # FOR LIVE
-        composer install --optimize-autoloader --no-dev
+        composer install --optimize-autoloader
     fi
     
 
@@ -114,6 +114,9 @@ deploy()
     #php artisan view:cache
     php artisan optimize
     php artisan storage:link
+
+    chmod 777 -R storage
+
     echo "Done for php artisan config/route/view cache"
 
     # Install NPM & setup
@@ -146,6 +149,16 @@ deploy()
         ln -s ../../../../asserts releases/$NOW/storage/app/public
     fi
     echo "Done for sharing assert"
+
+    # remove log file and create link
+    # -----------------------------------------------
+    if [ -f "releases/$NOW/storage/logs/laravel.log" ]
+    then
+        rm -rf releases/$NOW/storage/logs/laravel.log && ln -s ../../../../laravel.log releases/$NOW/storage/logs/laravel.log
+    else
+        ln -s ../../../../laravel.log releases/$NOW/storage/logs/laravel.log
+    fi
+    echo "Done for link log file"
 
     purge
     showall
