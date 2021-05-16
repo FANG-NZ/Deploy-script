@@ -106,6 +106,7 @@ deploy()
         php /usr/local/bin/composer.phar vendor-expose
     else
         # FOR LIVE
+        composer update
         composer install --optimize-autoloader
         composer vendor-expose
     fi
