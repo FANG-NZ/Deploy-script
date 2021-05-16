@@ -47,7 +47,7 @@ build()
 
     # ensure log and config files exist
 	# ----------------------------------
-	touch laravel.log
+	touch silverstripe.log
 	touch .env
 	echo "Build complete."
 }
