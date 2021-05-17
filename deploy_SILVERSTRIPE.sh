@@ -119,9 +119,9 @@ deploy()
     # Create current link to the latest 
     if [ -h "current" ]
     then
-        rm current && ln -s releases/$NOW/public current    
+        rm current && ln -s releases/$NOW current    
     else
-        ln -s releases/$NOW/public current    
+        ln -s releases/$NOW current    
     fi
     echo "Export successful. Repointing current to releases/$NOW"
 
