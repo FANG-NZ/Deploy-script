@@ -36,13 +36,13 @@ build()
 
     # create asserts
     # ---------------------------
-    if [ -d "asserts" ]
+    if [ -d "assets" ]
     then
-        echo "asserts directory already exists."
+        echo "assets directory already exists."
     else
-        rm -rf asserts
-        mkdir asserts
-        echo "'asserts' directory created"
+        rm -rf assets
+        mkdir assets
+        echo "'assets' directory created"
     fi
 
     # ensure log and config files exist
@@ -134,11 +134,11 @@ deploy()
 	# -----------------------------------------------
     if [ -d "releases/$NOW/public/assets" ]
     then
-        rm -rf releases/$NOW/public/assets && ln -s ../../../asserts releases/$NOW/public/assets
+        rm -rf releases/$NOW/public/assets && ln -s ../../../assets releases/$NOW/public/assets
     else
-        ln -s ../../../asserts releases/$NOW/public/assets
+        ln -s ../../../assets releases/$NOW/public/assets
     fi
-    echo "Done for sharing assert"
+    echo "Done for sharing assets"
 
     purge
     showall
