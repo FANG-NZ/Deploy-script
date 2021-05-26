@@ -34,15 +34,15 @@ build()
 		echo "releases' directory created."
 	fi
 
-    # create asserts
+    # create assets
     # ---------------------------
-    if [ -d "asserts" ]
+    if [ -d "assets" ]
     then
-        echo "asserts directory already exists."
+        echo "assets directory already exists."
     else
-        rm -rf asserts
-        mkdir asserts
-        echo "'asserts' directory created"
+        rm -rf assets
+        mkdir assets
+        echo "'assets' directory created"
     fi
 
     # ensure log and config files exist
