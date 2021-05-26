@@ -112,12 +112,8 @@ deploy()
     #php artisan config:cache
     #php artisan route:cache
     #php artisan view:cache
-    php artisan optimize
     php artisan storage:link
-
     chmod 777 -R storage
-
-    echo "Done for php artisan config/route/view cache"
 
     # Install NPM & setup
     npm install 
@@ -159,6 +155,10 @@ deploy()
         ln -s ../../../../laravel.log releases/$NOW/storage/logs/laravel.log
     fi
     echo "Done for link log file"
+
+    # update site cache & config
+    php releases/$NOW/artisan optimize
+    echo "Done for site config & setup"
 
     purge
     showall
