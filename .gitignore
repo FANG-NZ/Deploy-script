@@ -1,4 +1,5 @@
 /releases
+/current
 /deploy.conf
 
 #ignore silverstripe
