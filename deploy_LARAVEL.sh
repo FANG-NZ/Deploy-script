@@ -140,11 +140,11 @@ deploy()
 	# -----------------------------------------------
     if [ -d "releases/$NOW/storage/app/public" ]
     then
-        rm -rf releases/$NOW/storage/app/public && ln -s ../../../../asserts releases/$NOW/storage/app/public
+        rm -rf releases/$NOW/storage/app/public && ln -s ../../../../assets releases/$NOW/storage/app/public
     else
-        ln -s ../../../../asserts releases/$NOW/storage/app/public
+        ln -s ../../../../assets releases/$NOW/storage/app/public
     fi
-    echo "Done for sharing assert"
+    echo "Done for sharing assets"
 
     # remove log file and create link
     # -----------------------------------------------
