@@ -1,6 +1,7 @@
 /releases
 /current
 /deploy.conf
+/.htaccess
 
 #ignore silverstripe
 /.env
