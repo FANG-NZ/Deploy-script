@@ -1,0 +1,10 @@
+/releases
+
+#ignore silverstripe
+/.env
+/assets
+/silverstripe.log
+
+
+**/.vscode/
+
