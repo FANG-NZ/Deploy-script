@@ -1,9 +1,9 @@
 /releases
 /current
-deploy.conf
+/deploy.conf
 
 #ignore silverstripe
-.env
+/.env
 /assets
 /silverstripe.log
 
