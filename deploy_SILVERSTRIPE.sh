@@ -81,35 +81,36 @@ deploy()
   	echo "Destination: 'releases/$NOW'"
 
     mkdir releases/$NOW
-    git clone --branch $GIT_TREEISH $GIT_REMOTE releases/$NOW
+    # git clone --branch $GIT_TREEISH $GIT_REMOTE releases/$NOW
 
-    if [ $? -eq 0 ]
-  	then
-        echo "git clone successful."
-  	else
-        echo "git clone DID NOT complete successfully."
-        exit 0
-  	fi
+    # if [ $? -eq 0 ]
+  	# then
+    #     echo "git clone successful."
+  	# else
+    #     echo "git clone DID NOT complete successfully."
+    #     exit 0
+  	# fi
 
     cd releases/$NOW
     # Composer install & setup
 
-    if [ $ENV = "dev" ]
-    then
-        # FOR DEV
-        # ------  ONLY FOR MAC EN ------
-        # This is for my MAC OS, we need to find another way to 
-        # fix it
-        # MacOS can't use alisa in script
-        php /usr/local/bin/composer.phar install
+    # if [ $ENV = "dev" ]
+    # then
+    #     # FOR DEV
+    #     # ------  ONLY FOR MAC EN ------
+    #     # This is for my MAC OS, we need to find another way to 
+    #     # fix it
+    #     # MacOS can't use alisa in script
+    #     php /usr/local/bin/composer.phar install
+    #     php /usr/local/bin/composer.phar vendor-expose
+    # else
+    #     # FOR LIVE
+    #     composer update
+    #     composer install --optimize-autoloader
+    #     composer vendor-expose
+    # fi
 
-        php /usr/local/bin/composer.phar vendor-expose
-    else
-        # FOR LIVE
-        composer update
-        composer install --optimize-autoloader
-        composer vendor-expose
-    fi
+    # START enable SSL
 
     cd ../../
 
