@@ -1,0 +1,18 @@
+<?php
+
+/* What kind of environment is this: development, test, or live (ie, production)? */
+define('SS_ENVIRONMENT_TYPE', 'dev');
+//define('SS_ENVIRONMENT_TYPE', 'live');
+
+/* Database connection */
+define('SS_DATABASE_SERVER',   'DATABASE HOST NAME');
+define('SS_DATABASE_USERNAME', 'DATABASE USERNAME');
+define('SS_DATABASE_PASSWORD', 'DATABASE PASSWORD');
+define('SS_DATABASE_PREFIX', 'dev_');
+
+/* Configure a default username and password to access the CMS on all
+sites in this environment. */
+define('SS_DEFAULT_ADMIN_USERNAME', 'DEFAULT ADMIN USERNAME');
+define('SS_DEFAULT_ADMIN_PASSWORD', 'DEFAULT ADMIN PASSWORD');
+
+define('LOG_FILE', "../../silverstripe.log");

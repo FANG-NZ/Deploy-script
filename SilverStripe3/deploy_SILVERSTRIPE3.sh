@@ -94,17 +94,17 @@ deploy()
 
     
     # START enable SSL
-    # if [ $ENABLE_SSL = "true" ]
-    # then
-    #     # If htaccess exists, remove it
-    #     if [ -f ".htaccess" ]
-    #     then
-    #         rm .htaccess
-    #     fi
+    if [ $ENABLE_SSL = "true" ]
+    then
+        # If htaccess exists, remove it
+        if [ -f "releases/$NOW/.htaccess" ]
+        then
+            rm releases/$NOW/.htaccess
+        fi
 
-    #     ln -s ../../.htaccess .htaccess
-    #     echo "Replace htaccess successful."
-    # fi
+        ln -s ../../.htaccess releases/$NOW/.htaccess
+        echo "Replace htaccess successful."
+    fi
 
     
 
@@ -125,11 +125,11 @@ deploy()
     # removes any existing assets from deploy! 
 	# (so we can share assets across deploys)
 	# -----------------------------------------------
-    if [ -d "releases/$NOW/public/assets" ]
+    if [ -d "releases/$NOW/assets" ]
     then
-        rm -rf releases/$NOW/public/assets && ln -s ../../../assets releases/$NOW/public/assets
+        rm -rf releases/$NOW/assets && ln -s ../../assets releases/$NOW/assets
     else
-        ln -s ../../../assets releases/$NOW/public/assets
+        ln -s ../../assets releases/$NOW/assets
     fi
     echo "Done for sharing assets"
 
