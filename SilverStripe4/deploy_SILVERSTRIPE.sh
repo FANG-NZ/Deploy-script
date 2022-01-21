@@ -1,7 +1,7 @@
 #!/bin/bash
 
 #
-# This script runs the custom deploy for a SILVERSTRIPE GIT project and 
+# This script runs the custom deploy for a SILVERSTRIPE4 GIT project and 
 # target environment.
 #
 # author: FANG F
